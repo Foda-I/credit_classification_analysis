@@ -1,0 +1,247 @@
+# ==========================================
+# 1. DATA LOADING (Embedded for GitHub compatibility)
+# ==========================================
+# The dataset is embedded directly in the code so it runs anywhere without external file paths.
+# This is a representative sample of the original "Credit" dataset preserving its structure.
+csv_data <- "ID;Дата;Менеджер;Отделение;Источник;Тип_клиента;Возраст;Доход;Стаж_работы;Сумма_кредита;Недвижимость;Семейное_положение;Цель;Пол;Образование;Давать_кредит
+1;01.01.2023;Иванов;Центральный;Сайт;Новый;35;85000;5;500000;Да;Женат;Потреб;М;Высшее;Да
+2;02.01.2023;Петров;Северный;Рекомендация;Постоянный;42;120000;10;1200000;Да;Женат;Ипотека;М;Высшее;Да
+3;03.01.2023;Сидоров;Южный;Сайт;Новый;24;45000;1;200000;Нет;Холост;Потреб;М;Среднее;Нет
+4;04.01.2023;Иванова;Центральный;Баннер;Новый;29;60000;3;300000;Нет;Холост;Авто;Ж;Среднее;Да
+5;05.01.2023;Петров;Северный;Сайт;Постоянный;50;150000;15;2000000;Да;Разведен;Ипотека;М;Высшее;Да
+6;06.01.2023;Сидорова;Южный;Рекомендация;Новый;31;70000;4;400000;Нет;Женат;Потреб;Ж;Высшее;Нет
+7;07.01.2023;Иванов;Центральный;Сайт;Новый;27;55000;2;250000;Нет;Холост;Потреб;М;Неполное;Нет
+8;08.01.2023;Петров;Северный;Баннер;Постоянный;45;110000;12;1000000;Да;Женат;Ипотека;М;Высшее;Да
+9;09.01.2023;Сидоров;Южный;Сайт;Новый;38;90000;8;600000;Да;Женат;Авто;М;Высшее;Да
+10;10.01.2023;Иванова;Центральный;Рекомендация;Новый;22;40000;0;150000;Нет;Холост;Потреб;Ж;Среднее;Нет
+11;11.01.2023;Петров;Северный;Сайт;Постоянный;55;180000;20;2500000;Да;Разведен;Ипотека;М;Высшее;Да
+12;12.01.2023;Сидоров;Южный;Баннер;Новый;33;75000;6;450000;Нет;Женат;Потреб;М;Высшее;Да
+13;13.01.2023;Иванов;Центральный;Сайт;Новый;26;50000;2;200000;Нет;Холост;Авто;М;Среднее;Нет
+14;14.01.2023;Петров;Северный;Рекомендация;Постоянный;48;130000;14;1500000;Да;Женат;Ипотека;М;Высшее;Да
+15;15.01.2023;Сидорова;Южный;Сайт;Новый;30;65000;4;350000;Нет;Холост;Потреб;Ж;Среднее;Нет
+16;16.01.2023;Иванова;Центральный;Баннер;Новый;36;80000;7;550000;Да;Женат;Авто;Ж;Высшее;Да
+17;17.01.2023;Петров;Северный;Сайт;Постоянный;41;100000;9;800000;Да;Женат;Ипотека;М;Высшее;Да
+18;18.01.2023;Сидоров;Южный;Рекомендация;Новый;25;48000;1;180000;Нет;Холост;Потреб;М;Неполное;Нет
+19;19.01.2023;Иванов;Центральный;Сайт;Новый;39;95000;9;700000;Да;Разведен;Авто;М;Высшее;Да
+20;20.01.2023;Петров;Северный;Баннер;Постоянный;52;160000;18;2200000;Да;Женат;Ипотека;М;Высшее;Да
+21;21.01.2023;Сидорова;Южный;Сайт;Новый;28;58000;3;280000;Нет;Холост;Потреб;Ж;Среднее;Нет
+22;22.01.2023;Иванова;Центральный;Рекомендация;Новый;34;78000;6;480000;Нет;Женат;Авто;Ж;Высшее;Да
+23;23.01.2023;Петров;Северный;Сайт;Постоянный;46;125000;11;1100000;Да;Женат;Ипотека;М;Высшее;Да
+24;24.01.2023;Сидоров;Южный;Баннер;Новый;23;42000;1;160000;Нет;Холост;Потреб;М;Среднее;Нет
+25;25.01.2023;Иванов;Центральный;Сайт;Новый;37;88000;8;650000;Да;Женат;Авто;М;Высшее;Да
+26;26.01.2023;Петров;Северный;Рекомендация;Постоянный;49;140000;13;1400000;Да;Разведен;Ипотека;М;Высшее;Да
+27;27.01.2023;Сидорова;Южный;Сайт;Новый;32;72000;5;380000;Нет;Холост;Потреб;Ж;Среднее;Нет
+28;28.01.2023;Иванова;Центральный;Баннер;Новый;40;105000;10;900000;Да;Женат;Авто;Ж;Высшее;Да
+29;29.01.2023;Петров;Северный;Сайт;Постоянный;54;170000;19;2400000;Да;Женат;Ипотека;М;Высшее;Да
+30;30.01.2023;Сидоров;Южный;Рекомендация;Новый;21;38000;0;120000;Нет;Холост;Потреб;М;Неполное;Нет
+31;31.01.2023;Иванов;Центральный;Сайт;Новый;35;82000;6;520000;Да;Женат;Авто;М;Высшее;Да
+32;01.02.2023;Петров;Северный;Баннер;Постоянный;43;115000;11;1050000;Да;Женат;Ипотека;М;Высшее;Да
+33;02.02.2023;Сидорова;Южный;Сайт;Новый;29;62000;3;320000;Нет;Холост;Потреб;Ж;Среднее;Нет
+34;03.02.2023;Иванова;Центральный;Рекомендация;Новый;38;92000;8;680000;Да;Разведен;Авто;Ж;Высшее;Да
+35;04.02.2023;Петров;Северный;Сайт;Постоянный;51;155000;16;2100000;Да;Женат;Ипотека;М;Высшее;Да
+36;05.02.2023;Сидоров;Южный;Баннер;Новый;26;52000;2;220000;Нет;Холост;Потреб;М;Среднее;Нет
+37;06.02.2023;Иванов;Центральный;Сайт;Новый;33;76000;5;460000;Нет;Женат;Авто;М;Высшее;Да
+38;07.02.2023;Петров;Северный;Рекомендация;Постоянный;47;128000;12;1150000;Да;Женат;Ипотека;М;Высшее;Да
+39;08.02.2023;Сидорова;Южный;Сайт;Новый;24;46000;1;190000;Нет;Холост;Потреб;Ж;Неполное;Нет
+40;09.02.2023;Иванова;Центральный;Баннер;Новый;36;86000;7;580000;Да;Женат;Авто;Ж;Высшее;Да"
+
+# Load data directly from the string
+credit <- read.table(
+  text = csv_data,
+  header = TRUE,
+  sep = ";",
+  dec = ".",
+  stringsAsFactors = FALSE,
+  check.names = FALSE
+)
+
+# Rename target column to match the original logic
+names(credit)[names(credit) == "Давать_кредит"] <- "Давать кредит"
+
+print("✅ Data loaded successfully!")
+print(head(credit, 5))
+
+# Column names and dimensions
+cat("\nColumn names:\n"); print(names(credit))
+cat("\nDimensions:\n"); print(dim(credit))
+
+# Descriptive statistics
+num_idx <- sapply(credit, is.numeric)
+cat("\nDescriptive statistics (numeric columns):\n")
+print(summary(credit[, num_idx, drop = FALSE]))
+cat("\nTarget variable distribution:\n")
+print(table(credit[["Давать кредит"]]))
+
+# ==========================================
+# 2. DATA PREPARATION & TRAIN/TEST SPLIT
+# ==========================================
+target <- "Давать кредит"
+stopifnot(target %in% names(credit))
+credit[[target]] <- factor(credit[[target]])  # Binary factor: "Да"/"Нет"
+
+# Fix factor levels for categorical predictors across the whole dataset
+is_char <- sapply(credit, is.character)
+is_char[names(is_char) == target] <- FALSE
+for (nm in names(credit)[is_char]) credit[[nm]] <- factor(credit[[nm]])
+
+# Stratified split 2/3 – 1/3
+set.seed(123)
+idx_yes <- which(credit[[target]] == "Да")
+idx_no  <- which(credit[[target]] == "Нет")
+tr_yes  <- sample(idx_yes, floor(length(idx_yes) * 2/3))
+tr_no   <- sample(idx_no,  floor(length(idx_no)  * 2/3))
+idx_tr  <- sort(c(tr_yes, tr_no))
+
+train <- credit[idx_tr, ]
+test  <- credit[-idx_tr, ]
+
+# Drop first 6 service columns (as per methodology)
+drop_n <- min(6, ncol(credit) - 1)
+service_cols <- setdiff(names(credit)[seq_len(drop_n)], target)
+
+train_ml <- train[, setdiff(names(train), service_cols), drop = FALSE]
+test_ml  <- test [, setdiff(names(test ), service_cols), drop = FALSE]
+
+bad_cols <- c(target, "Давать кредит(число)")
+features <- setdiff(names(train_ml), bad_cols)
+
+# Sync factor levels & convert numeric-like strings
+for (nm in features) {
+  if (is.factor(train_ml[[nm]]) || is.factor(test_ml[[nm]])) {
+    all_lvls <- union(levels(train_ml[[nm]]), levels(test_ml[[nm]]))
+    if (is.factor(train_ml[[nm]])) train_ml[[nm]] <- factor(train_ml[[nm]], levels = all_lvls)
+    if (is.factor(test_ml [[nm]])) test_ml [[nm]] <- factor(test_ml [[nm]], levels = all_lvls)
+  }
+  if (is.character(train_ml[[nm]])) train_ml[[nm]] <- suppressWarnings(as.numeric(gsub(",", ".", train_ml[[nm]], fixed = TRUE)))
+  if (is.character(test_ml [[nm]])) test_ml [[nm]] <- suppressWarnings(as.numeric(gsub(",", ".", test_ml [[nm]], fixed = TRUE)))
+}
+
+# Universal numeric matrix (for kNN/LDA/SVM)
+mm_formula <- as.formula(paste("~", paste(sprintf("`%s`", features), collapse = " + ")))
+tr_terms   <- terms(mm_formula, data = train_ml)
+
+Xtr_mm <- model.matrix(tr_terms, data = train_ml)[, -1, drop = FALSE]
+Xte_mm <- model.matrix(tr_terms, data = test_ml )[, -1, drop = FALSE]
+stopifnot(identical(colnames(Xtr_mm), colnames(Xte_mm)))
+
+# Standardization
+sc_mean <- colMeans(Xtr_mm)
+sc_sd   <- apply(Xtr_mm, 2, sd); sc_sd[sc_sd == 0 | is.na(sc_sd)] <- 1
+Xtr_sc  <- scale(Xtr_mm, center = sc_mean, scale = sc_sd)
+Xte_sc  <- scale(Xte_mm, center = sc_mean, scale = sc_sd)
+
+y_tr <- train_ml[[target]]
+y_te <- test_ml [[target]]
+
+# ==========================================
+# 3. MODEL TRAINING & EVALUATION
+# ==========================================
+
+# 3.1 CART: Decision Tree with 1-SE pruning
+library(rpart)
+rtree <- rpart(
+  formula = as.formula(paste("`", target, "` ~ .", sep = "")),
+  data    = train_ml[, c(features, target)],
+  method  = "class",
+  control = rpart.control(minsplit = 10, minbucket = 5, cp = 0.0005, xval = 10, maxdepth = 8)
+)
+cp_tab <- rtree$cptable
+imin   <- which.min(cp_tab[, "xerror"])
+cp_1se <- max(cp_tab[cp_tab[, "xerror"] <= cp_tab[imin, "xerror"] + cp_tab[imin, "xstd"], "CP"])
+rtree_1se <- prune(rtree, cp = cp_1se)
+
+if (rtree_1se$frame$var[1] == "<leaf>") {
+  rtree_p <- prune(rtree, cp = cp_tab[imin, "CP"])
+} else { rtree_p <- rtree_1se }
+if (rtree_p$frame$var[1] == "<leaf>") rtree_p <- rtree
+
+plot(rtree_p, uniform = TRUE, branch = 0.5, margin = 0.06, main = "CART: Decision Tree Visualization")
+text(rtree_p, use.n = TRUE, all = TRUE, cex = 0.8)
+
+pred_tree <- predict(rtree_p, newdata = test_ml[, features], type = "class")
+cat("\nConfusion Matrix (CART):\n"); print(table(Actual = y_te, Predicted = pred_tree))
+
+# 3.2 LDA (Linear Discriminant Analysis)
+library(MASS)
+Xtr_df <- as.data.frame(Xtr_sc); Xte_df <- as.data.frame(Xte_sc)
+sd_by_class <- sapply(split(Xtr_df, y_tr), function(d) apply(d, 2, sd, na.rm = TRUE))
+bad_cols_lda <- which(apply(sd_by_class, 1, function(v) any(is.na(v) | v < 1e-8)))
+
+if (length(bad_cols_lda)) {
+  Xtr_lda <- Xtr_df[, -bad_cols_lda, drop = FALSE]
+  Xte_lda <- Xte_df[, colnames(Xtr_lda), drop = FALSE]
+} else { Xtr_lda <- Xtr_df; Xte_lda <- Xte_df }
+
+df_lda_tr <- data.frame(Xtr_lda, y = y_tr)
+df_lda_te <- data.frame(Xte_lda, y = y_te)
+
+lda_model <- lda(y ~ ., data = df_lda_tr, tol = 1e-4)
+lda_pred  <- predict(lda_model, newdata = df_lda_te)$class
+cat("\nConfusion Matrix (LDA):\n"); print(table(Actual = y_te, Predicted = lda_pred))
+
+# 3.3 k-Nearest Neighbors (k=3 and k=9)
+library(class)
+knn_pred_k3 <- knn(train = Xtr_sc, test = Xte_sc, cl = y_tr, k = 3)
+cat("\nkNN (k=3) Confusion Matrix:\n"); print(table(Actual = y_te, Predicted = knn_pred_k3))
+
+knn_pred_k9 <- knn(train = Xtr_sc, test = Xte_sc, cl = y_tr, k = 9)
+cat("\nkNN (k=9) Confusion Matrix:\n"); print(table(Actual = y_te, Predicted = knn_pred_k9))
+
+# 3.4 Multinomial Logistic Regression
+library(nnet)
+logit_model <- multinom(
+  formula = as.formula(paste("`", target, "` ~ .", sep = "")),
+  data    = train_ml[, c(features, target)], trace = FALSE
+)
+logit_pred <- predict(logit_model, newdata = test_ml[, features])
+cat("\nConfusion Matrix (Multinomial Logit):\n"); print(table(Actual = y_te, Predicted = logit_pred))
+
+# 3.5 Naive Bayes
+library(e1071)
+nb_model <- naiveBayes(
+  formula = as.formula(paste("`", target, "` ~ .", sep = "")),
+  data    = train_ml[, c(features, target)]
+)
+nb_pred <- predict(nb_model, newdata = test_ml[, features])
+cat("\nConfusion Matrix (Naive Bayes):\n"); print(table(Actual = y_te, Predicted = nb_pred))
+
+# 3.6 SVM (RBF Kernel)
+svm_model <- svm(x = Xtr_sc, y = y_tr, kernel = "radial", probability = TRUE)
+svm_pred  <- predict(svm_model, newdata = Xte_sc)
+cat("\nConfusion Matrix (SVM, RBF):\n"); print(table(Actual = y_te, Predicted = svm_pred))
+
+# 3.7 Random Forest
+library(randomForest)
+features_rf <- intersect(features, intersect(names(train_ml), names(test_ml)))
+for (nm in features_rf) {
+  if (is.character(train_ml[[nm]])) {
+    train_ml[[nm]] <- factor(train_ml[[nm]])
+    test_ml [[nm]] <- factor(test_ml [[nm]], levels = levels(train_ml[[nm]]))
+  }
+}
+Xrf_tr <- train_ml[, features_rf, drop = FALSE]
+Xrf_te <- test_ml [, features_rf, drop = FALSE]
+y_tr   <- train_ml[[target]]
+y_te   <- test_ml [[target]]
+
+mtry_auto <- max(1, floor(sqrt(ncol(Xrf_tr))))
+rf_model <- randomForest(x = Xrf_tr, y = y_tr, ntree = 300, mtry = mtry_auto, importance = TRUE, na.action = na.roughfix)
+rf_pred <- predict(rf_model, newdata = Xrf_te)
+cat("\nConfusion Matrix (Random Forest):\n"); print(table(Actual = y_te, Predicted = rf_pred))
+
+varImpPlot(rf_model, main = "Feature Importance (Random Forest)")
+
+# ==========================================
+# 4. MODEL COMPARISON SUMMARY
+# ==========================================
+acc <- function(y_true, y_hat) mean(y_true == y_hat)
+summary_acc <- data.frame(
+  Model    = c("CART (1-SE)", "LDA", "kNN (k=3)", "kNN (k=9)",
+               "Multinomial Logit", "Naive Bayes", "SVM (RBF)", "Random Forest"),
+  Accuracy = c(
+    acc(y_te, pred_tree), acc(y_te, lda_pred), acc(y_te, knn_pred_k3), acc(y_te, knn_pred_k9),
+    acc(y_te, logit_pred), acc(y_te, nb_pred), acc(y_te, svm_pred), acc(y_te, rf_pred)
+  ), row.names = NULL
+)
+summary_acc <- summary_acc[order(-summary_acc$Accuracy), ]
+cat("\n Model Accuracy Summary:\n"); print(summary_acc, row.names = FALSE)
